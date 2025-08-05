@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap&#39');
+
+* {
+    margin: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+}
+
+
+
+.menu {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.menu li {
+    margin: 0px;
+    padding: 15px;
+}
+
+.logo {
+    width: 40px;
+}
+
+.titulo {
+    color: white;
+    font-size: 30px;
+    text-align: left;
+    align-items: flex-start;
+
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.login {
+    color: #FFB179;
+    border: none;
+    padding: 5px;
+    font-size: larger;
+    background-color: #2C314F;
+
+}
+
+.signup {
+    background-color: #FFB179;
+    color: #2c314f;
+    padding: 5px;
+    border-radius: 3px;
+    border: none;
+    font-size: larger;
+}
+
+body {
+    padding: 30px;
+    background-color: #2C314F;
+    justify-content: center;
+}
+
+.texto {
+    padding-top: 50px;
+    grid-row: auto;
+}
+
+body h1 {
+    font-size: 4rem;
+    color: #FFB179;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+body p {
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: block;
+}
+
+body strong {
+    background-color: white;
+    color: #2C314F;
+}
+
+.meio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.meio img {
+    width: 500px;
+    height: 500px;
+    margin-left: 200px;
+}
+
+.btn-play {
+    display: flex;
+    gap: 30px;
+}
+
+.botao1, .botao2 {
+    background-color: white;
+    width: 200px;
+    flex-direction: row;
+    color: black;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+}

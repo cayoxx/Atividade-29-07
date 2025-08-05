@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Jogo de Cartas Rápido</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .cartas {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .carta {
+            border: 1px solid #333;
+            border-radius: 8px;
+            width: 80px;
+            height: 120px;
+            margin: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .carta img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .carta.descartada {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+        #escolherRodada {
+            margin: 20px 0;
+            display: none;
+        }
+        #rodadaAtual {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jogo do Mentiroso</h1>
+
+    <div id="escolherRodada">
+        <label for="cartaRodadaSelect">Escolha a carta da rodada:</label>
+        <select id="cartaRodadaSelect">
+            <option value="Rei">Rei</option>
+            <option value="Rainha">Rainha</option>
+            <option value="Ás">Ás</option>
+        </select>
+        <button onclick="confirmarRodada()">Confirmar</button>
+    </div>
+
+    <div id="rodadaAtual"></div>
+
+    <div class="cartas" id="cartas"></div>
+
+    <button onclick="sortearCartas()">Novas 5 Cartas</button>
+    <button onclick="descartarSelecionadas()">Descartar Selecionadas</button>
+
+    <script>
+        const baralhoBase = [
+            ...Array(4).fill('Rei'),
+            ...Array(4).fill('Rainha'),
+            ...Array(4).fill('Ás'),
+            ...Array(2).fill('Coringa')
+        ];
+
+        const imagensCartas = {
+            'Rei': 'https://media.istockphoto.com/id/1440592316/pt/vetorial/king-of-diamonds-playing-card-classic-design.jpg?s=612x612&w=0&k=20&c=RNBGZs0cEU6sj06VxdNc2SeLFUszNhxSUfcfgLdo-Lk=',
+            'Rainha': 'https://media.istockphoto.com/id/1440592337/pt/vetorial/queen-of-hearts-playing-card-classic-design.jpg?s=612x612&w=0&k=20&c=b9I_QuAIYTcozmBBWumw87lYXiXCLTcWsXzUhkrzUzk=',
+            'Ás': 'https://media.istockphoto.com/id/166086175/pt/foto/carta-de-%C3%A1s-de-espadas.jpg?s=612x612&w=0&k=20&c=CGLUn_t4V0gLahR-ZOl49JTtJwb1Bfu_WpsazO9ZLi4=',
+            'Coringa': 'https://i.pinimg.com/originals/ca/40/c3/ca40c3c6365ce85bf13173c128bd4756.png'
+        };
+
+        let mao = [];
+        let cartaRodada = null;
+
+        function embaralhar(array) {
+            let a = array.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function sortearCartas() {
+            const baralho = embaralhar(baralhoBase);
+            mao = baralho.slice(0, 5).map(carta => ({ nome: carta, selecionada: false }));
+            renderizarCartas();
+            document.getElementById('escolherRodada').style.display = 'block';
+            document.getElementById('rodadaAtual').textContent = '';
+        }
+
+        function renderizarCartas() {
+            const cartasDiv = document.getElementById('cartas');
+            cartasDiv.innerHTML = '';
+            mao.forEach((carta) => {
+                const div = document.createElement('div');
+                div.className = 'carta' + (carta.selecionada ? ' descartada' : '');
+                const img = document.createElement('img');
+                img.src = imagensCartas[carta.nome];
+                img.alt = carta.nome;
+                div.onclick = () => {
+                    carta.selecionada = !carta.selecionada;
+                    renderizarCartas();
+                };
+                div.appendChild(img);
+                cartasDiv.appendChild(div);
+            });
+        }
+
+        function descartarSelecionadas() {
+            mao = mao.filter(carta => !carta.selecionada);
+            renderizarCartas();
+        }
+
+        function confirmarRodada() {
+            const select = document.getElementById('cartaRodadaSelect');
+            cartaRodada = select.value;
+            document.getElementById('escolherRodada').style.display = 'none';
+            document.getElementById('rodadaAtual').textContent = `Carta da rodada: ${cartaRodada}`;
+        }
+
+        sortearCartas();
+    </script>
+</body>
+</html>
